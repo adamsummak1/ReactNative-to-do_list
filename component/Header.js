@@ -11,7 +11,8 @@ export default function Header({ addTask }) {
   const [text, setText] = useState("");
 
   function addNewTask() {
-    addTask({ text: text });
+    addTask({ text: text, completed: false });
+    setText("");
   }
 
   return (

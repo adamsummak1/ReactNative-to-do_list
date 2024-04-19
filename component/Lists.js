@@ -1,11 +1,21 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function Lists({ tasks, deleteTask }) {
+export default function Lists({ tasks, deleteTask, completeTask }) {
   return (
     <View style={styles.lists}>
       {tasks.map((task, index) => (
         <View key={index} style={styles.list}>
-          <Text style={styles.listText}>{task.text}</Text>
+          <Text
+            style={[
+              styles.listText,
+              {
+                textDecorationLine: task.completed ? "line-through" : "none",
+              },
+            ]}
+            onPress={() => completeTask(index)}
+          >
+            {task.text}
+          </Text>
           <TouchableOpacity
             style={styles.listDelete}
             onPress={() => deleteTask(index)}

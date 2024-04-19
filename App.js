@@ -7,7 +7,8 @@ import { useState } from "react";
 export default function App() {
   const [task, setTask] = useState([]);
 
-  function addTast(newTask) {
+  function addTask(newTask) {
+    console.log(newTask);
     setTask((tasks) => [...tasks, newTask]);
   }
 
@@ -15,11 +16,27 @@ export default function App() {
     setTask((tasks) => tasks.filter((task, index) => index !== id));
   }
 
+  function completeTask(id) {
+    setTask((tasks) =>
+      tasks.map((task, index) => {
+        if (index === id) {
+          return { ...task, completed: !task.completed };
+        } else {
+          return task;
+        }
+      })
+    );
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Header addTask={addTast} />
-        <Lists tasks={task} deleteTask={deleteTask} />
+        <Header addTask={addTask} />
+        <Lists
+          tasks={task}
+          deleteTask={deleteTask}
+          completeTask={completeTask}
+        />
       </View>
     </SafeAreaView>
   );
